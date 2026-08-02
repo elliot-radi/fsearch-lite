@@ -48,10 +48,11 @@ containing directory if Nemo isn't installed.
 | File | Purpose |
 |---|---|
 | `fsearch_core.py` | Indexing + search logic. No GUI dependency — importable, testable, and used by `--reindex`. |
-| `fsearch_lite.py` | The GTK3 GUI. Imports `fsearch_core`. |
-| `fsearch-lite-icon.svg` | App icon (also provided as `.png` at 256/128/64/48px). |
+| `fsearch_lite.py` | The GTK3 GUI + CLI entry point (`--reindex`, `--add-root`). Imports `fsearch_core`. |
+| `custom-icons/` | App icon as SVG, plus PNG at 256/128/64/48px. |
 | `fsearch-lite-reindex.service` | systemd user unit: runs a one-shot reindex. |
 | `fsearch-lite-reindex.timer` | systemd user unit: fires the service every 4 hours. |
+| `LICENSE` | MIT. |
 | `README.md` | This file. |
 
 ## Installation
@@ -109,7 +110,7 @@ delete it any time to force a clean rebuild.
 
 ```bash
 mkdir -p ~/.local/share/icons
-cp fsearch-lite-icon.svg ~/.local/share/icons/
+cp custom-icons/fsearch-lite-icon.svg ~/.local/share/icons/
 ```
 
 **2. Desktop entry** — create `~/.local/share/applications/fsearch-lite.desktop`:
@@ -186,6 +187,18 @@ Notes:
 - Click "Edit Config" to change indexed roots or excludes, then "Reindex".
 - Click "Reindex" any time — there's no live filesystem watcher in this
   version (that's what the systemd timer above is for).
+
+## CLI
+
+```bash
+./fsearch_lite.py                 # launch GUI
+./fsearch_lite.py --add-root DIR  # add a root (repeatable), then launch
+./fsearch_lite.py --reindex       # rebuild index and exit (no GUI)
+```
+
+## License
+
+MIT — see [LICENSE](LICENSE).
 
 ## Possible follow-ups (not included, but easy to bolt on)
 
