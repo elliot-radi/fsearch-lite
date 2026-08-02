@@ -1,0 +1,12 @@
+[Unit]
+Description=Run fsearch-lite reindex every 4 hours
+
+[Timer]
+# Run 5 min after login/boot (in case the machine was off at a scheduled time),
+# then every 4 hours from when the service last ran.
+OnBootSec=5min
+OnUnitActiveSec=4h
+Persistent=true
+
+[Install]
+WantedBy=timers.target

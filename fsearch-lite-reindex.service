@@ -1,0 +1,11 @@
+[Unit]
+Description=Reindex fsearch-lite file search database
+# Don't let a slow reindex compete with foreground work for CPU/disk priority
+After=default.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 %h/bin/fsearch_lite.py --reindex
+Nice=19
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
